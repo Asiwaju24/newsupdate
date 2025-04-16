@@ -1,0 +1,143 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Add custom styles for the page -->
+<style>
+
+   body {
+    font-family: Arial, sans-serif;
+    background-color: rgb(205 205 205);
+    margin: 0;
+}
+    /* Styling for the cart row container */
+    .cart-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #ececec;
+        background-color: rgb(230, 230, 230);
+    }
+
+    /* Styling for individual columns in the row */
+    .cart-row div {
+        flex: 1;
+        padding: 10px;
+        text-align: center;
+    }
+
+    /* Style for the headings in the cart row */
+    .cart-row strong {font-size: 16px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    /* Styling for the action buttons (Edit/Delete) */
+    .btn {
+        padding: 5px 15px;
+        font-size: 14px;
+        margin-right: 10px;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        border: 1px solid #28a745;
+        color: white;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        border: 1px solid #dc3545;
+        color: white;
+    }
+
+    /* Hover effect for buttons */
+    .btn:hover {
+        opacity: 0.8;
+        cursor: pointer;
+    }
+
+    /* Add spacing between the box elements */
+    .box-element {
+        margin-bottom: 30px;
+        margin-top: 20px;
+    }
+
+    /* Styling for the "Create Post" button */
+    .btn-outline-dark {
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+
+    /* Ensure the content is well spaced out on smaller screens */
+    @media (max-width: 768px) {
+        .cart-row {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .cart-row div {
+            width: 100%;
+            text-align: left;
+        }
+
+        .btn {
+            width: 100%;
+            margin-top: 10px;
+        }}
+</style>
+<div class="container">
+<div class="row">
+    <div class="col-lg-12">
+        <div class="box-element">
+            <!-- Create Post Button -->
+            <a class="btn btn-outline-dark" href="{% url 'create_post' %}">&#x2190; Create Post</a>
+        </div>
+
+        <!-- Post List -->
+        <div class="box-element">
+    
+            {% for post in post %}
+            <div class="cart-row">
+                 <div><strong>Date Posted</strong><p>{{ post.created_at }}</p></div>
+                <div><strong>Post Body</strong><p>{{ post.body|truncatewords:20 }}</p></div>
+                <div><strong>Author</strong><p>{{ post.author }}</p></div>
+                <div><div><strong>Actions</strong></div>
+                    
+                    <button class="btn btn-success">Edit</button>
+                    <button class="btn btn-danger delete_post"  data-index="{{ post.id }}">Delete</button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+</div>
+<script>
+  $(document).on('click', '.delete_post', function(e) {
+    e.preventDefault();
+    $.ajax({
+      type: 'POST',
+      url: '{% url "delete_post" %}',
+      data: {
+        post_id: $(this).data('index'),
+        csrfmiddlewaretoken: '{{ csrf_token }}',
+        action: 'post'
+      },
+      success: function(json) {
+          location.reload();
+      },
+      error: function(xhr, errmsg, err) {
+          console.error(`Error: ${errmsg}`);
+          alert('An error occurred. Please try again.');
+      }
+    });
+  });
+</script>
+{% endblock %}

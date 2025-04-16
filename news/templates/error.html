@@ -1,0 +1,43 @@
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: rgb(0 0 20);
+        
+        }
+        .container {
+            text-align: center;
+          color: white;
+        }
+        #match-btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-top-right-radius: 10px;
+           
+        }
+    a{
+        text-decoration: none;
+    }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Error 404<br>
+            Page Not Found
+        </h1>
+        
+        <button id="match-btn" class="btn btn-error"><a href="{% url 'home' %}">Back To Home</a></button>
+       
+    </div>
+    
+   

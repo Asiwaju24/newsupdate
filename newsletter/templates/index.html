@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Newsletter Signup</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+    <style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f1f2f3;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.contain {
+    width: 100%;
+    background-color: midnightblue;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color: white;
+    text-align: center;
+}
+.container {
+    max-width: 600px;
+    margin: 10px; 
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+h1, h4, p{
+    margin-bottom: 20px;
+}
+h3 img{
+    width: 30px;
+    height: 30px;
+    border-radius: 50px;
+}
+    </style>
+    <div class="contain">
+        <h1>Newsletter</h1>
+        <h4>Get the best news delivered to your mail from Trusted Newsletters</h4>
+    
+          <!--<div class=" dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
+            <ul class="dropdown-menu right">
+              <li><a class="dropdown-item" href="#lifestyle">Lifestyle</a></li>
+              <li><a class="dropdown-item" href="#football">Football</a></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </div>-->
+    </div>
+    <div class="container">
+        <p>
+            Your inbox is probably already full, so why subscribe to additional newsletters? Well, 
+            email newsletters are a direct source of valuable information. From industry-specific 
+            publications like fashion newsletters or real estate newsletters to general or news-related emails, 
+            there are lots to choose from.
+        </p>
+        <p>
+Here are some reasons why you might want to subscribe to at least one email newsletter:
+        </p>
+        <ul>
+            <li>Read news coverage.</li>
+            <li>Learn something new.</li>
+            <li>Get exclusive deals.</li>
+            <li>Follow your favorite experts and leaders of opinion.</li>
+            <li>Feel compelled to read something? Enjoy our best email newsletters list!</li>
+        </ul>
+    </div>
+    <h1 id="lifestyle" class="top">Lifestyle Newsletters</h1>
+    
+    {% for newsletter in newsletters %}
+    <div class="container">
+        <h3><img src="{{newsletter.image.url}}">     {{newsletter.title}}</h3>
+        <p>{{newsletter.short_description}}</p>
+        <a href="{% url 'add_subscriber' newsletter.id %}"  class="btn btn-outline-primary"> More About Us</a>
+    
+       </div>
+       {% endfor %}
+   
+       
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+</body>
+</html>

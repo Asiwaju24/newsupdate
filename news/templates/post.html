@@ -1,0 +1,169 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: rgb(205 205 205);
+        margin: 0;
+    }
+
+    .card {
+        width: 100%;
+        margin-top: 10px;
+        background-color: white;
+        border-top-left-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+    @media (min-width: 765px) {
+        .card{
+        width: 50%;
+        margin-top: 10px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        margin: auto;
+        }
+        
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+    .card-body img{
+        height: 350px;
+    }
+    .card-title {
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+
+    .card-img-top {
+        width: 100%;
+        height: auto;
+    }
+
+    .card-text {
+        font-size: 1.2rem;
+        line-height: 1.6;
+    }
+
+    .latest h1 {
+        text-align: center;
+        font-size: 1.6rem;
+    }
+
+    .new-card {
+        display: flex;
+        width: 98%;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: white;
+        margin: 10px;
+        transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+    }
+
+    .new-card:hover {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        transform: translateY(-5px);
+    }
+
+    .card-details h4 {
+        transition: color 0.3s ease-in-out;
+    }
+
+    .card-details h4:hover {
+        color: #333;
+    }
+
+    .card-image-container {
+        flex: 1;
+        overflow: hidden;
+    }
+
+    .card-image-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Ensure the image covers the container */
+    }
+
+    .card-details {
+        flex: 2;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .card-details h4 {
+        margin: 0 0 10px 0;
+        font-size: 1.5rem;
+    }
+
+    .card-details .post-body {
+        flex-grow: 1;
+        margin: 0 0 10px 0;
+        font-size: 1rem;
+    }
+
+    .card-details a {
+        color: black;
+        text-decoration: none;
+    }
+
+    .card-details .post-meta {
+        color: #555;
+        font-size: 0.9rem;
+    }
+
+    .new-card {
+        transition: transform 0.5s ease-in-out;
+        opacity: 0;
+        transform: translateY(50px);
+        height: 200px;
+    }
+
+    .new-card.animate {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .related-posts h3{
+        text-align: center;
+        margin-top: 10px;
+    }
+  </style>
+  <div class="contain">
+<div class="card">
+    <div class="card-body">
+        <h3 class="card-title">{{ post.title }}</h3><br/>
+        <img src="{{ post.image.url }}" class="card-img-top" alt="..."><br/><br/>
+        <p class="card-text">{{ post.body }}</p>
+    </div>
+</div>
+</div>
+<!-- Related Posts Section -->
+<div class="related-posts container">
+    <h3>Related Posts</h3>
+    
+    {% for related_post in related_posts %}
+    <div class="new-card">
+        <div class="card-image-container">
+            <img src="{{ related_post.image.url }}" alt="Related Post Image">
+        </div>
+        <div class="card-details">
+            <a href="/news/post/{{ related_post.id }}">
+            <h4>{{ related_post.title }}</h4>
+            <p class="post-body">{{ related_post.body|truncatewords:20}}</p></a>
+            <p class="related-post-meta">By {{ related_post.author }} | {{ related_post.created_at|date:"F j, Y" }}</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+{% endblock %}

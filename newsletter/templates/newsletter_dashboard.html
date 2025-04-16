@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Welcome to your Dashboard, {{ user.username }}!</h1>
+    <h2>Your Newsletters</h2>
+    <ul>
+        {% for newsletter in newsletters %}
+        <li>
+            {{ newsletter.title }}
+            <a href="{% url 'send_newsletter' newsletter.id %}">Send Newsletter</a>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

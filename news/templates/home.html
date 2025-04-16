@@ -1,0 +1,206 @@
+
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+  <style>
+
+   body {
+    font-family: Arial, sans-serif;
+    background-color: rgb(205 205 205);
+    margin: 0;
+}
+@media (min-width: 765px) {
+    .card-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+}
+
+.card {
+    height: 300px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+    margin: 20px;
+    border-top-left-radius: 20px;
+}
+
+
+.card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease-in-out;
+}
+
+.card-image img:hover {
+    transform: scale(1.1);
+}
+
+.card-text {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%; /* Ensure the text spans the full width of the card */
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 10px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.card-text:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.card-text h4 {
+    margin: 0;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.card-text p a {
+    margin: 5px 0 0;
+    font-size: 1.1rem;
+    text-decoration: none;
+}
+
+.card-text p {
+    margin: 5px 0 0;
+    font-size: 0.9rem;
+}
+
+
+.latest h1{
+    text-align: center;
+    font-size: 1.6rem;
+}
+.new-card {
+    display: flex;
+    width: 98%;
+    height: 200px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    margin: 10px;
+ transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+.new-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+}
+
+.card-details h4 {
+  transition: color 0.3s ease-in-out;
+}
+
+.card-details h4:hover {
+  color: #333;
+}
+
+.card-image-container {
+    flex: 1;
+    overflow: hidden;
+}
+
+.card-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensure the image covers the container */
+}
+
+.card-details {
+    flex: 2;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.card-details a {
+    text-decoration: none;
+    color: black;
+}
+.card-details h4{
+    margin: 0 0 10px 0;
+    font-size: 1.5rem;
+}
+
+.card-details .post-body {
+    flex-grow: 1;
+    margin: 0 0 10px 0;
+    font-size: 1rem;
+    
+}
+.card-details .post-body a{
+    color: black;
+    text-decoration: none;
+}
+.card-details .post-meta {
+    color: #555;
+    font-size: 0.9rem;
+}
+.card a {
+    text-decoration: none;
+    color: white;
+}
+.new-card {
+  transition: transform 0.5s ease-in-out;
+  opacity: 0;
+  transform: translateY(50px);
+}
+
+.new-card.animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+  </style>
+  
+<div class="card-container">
+  {% for post in post|slice:":6" %}
+  {% if post.trending %}
+  
+  <div class="card">
+    <div class="card-image">
+        <img src="{{ post.image.url }}" alt="Card Image">
+        <div class="card-text">
+            <p>{{ post.category }}</p>
+            <a href="/news/post/{{ post.id }}"><h4>{{ post.title }}</h4>
+            <p>{{ post.body|truncatewords:10 }}</p></a>
+            <p>{{ post.created_at|timesince}} ago</p>
+            <p>By: {{ post.author }}</p>
+        </div>
+    </div>
+  </div>
+
+
+{% endif %}
+{% endfor %}
+</div>
+<div class="latest">
+     <h1>Latest News</h1>
+     {% for post in post %}
+     <div class="new-card">
+    <div class="card-image-container">
+        <img src="{{ post.image.url }}" alt="Card Image">
+    </div>
+    <div class="card-details">
+        <a href="/news/post/{{ post.id }}"><h4>{{ post.title }}</h4>
+        <p class="post-body">{{ post.body|truncatewords:10 }}</p></a>
+        <p class="post-meta">{{ post.created_at|timesince}} ago</p>
+            <p class="post-meta">By: {{ post.author }}</p>
+    </div>
+</div>
+{% endfor %}
+
+</div>
+
+{% endblock %}

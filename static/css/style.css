@@ -1,0 +1,60 @@
+
+* {
+    padding: 1px;
+    margin: 0;
+    list-style: none;
+    text-decoration: none;
+    box-sizing: border-box; /* Ensure padding and border are included in element's total width and height */
+}
+
+body {
+    transition: background-color 1.9s, color 1.9s;
+}
+
+p a {
+    text-decoration: none;
+    color: white;
+}
+
+img {
+    width: 100%;
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 0;
+}
+
+.card {
+
+    position: relativee;/* Positioning context for absolute positioning*/
+    margin: 20px;
+    border: none; /* Remove default border */
+    border-radius: 8px; /* Slight rounding of corners */
+    overflow: hidden; /* Ensure content doesn't overflow the card */
+}
+
+.card-img {
+    display: block; /* Ensure the image is displayed as a block-level element */
+    width: 100%;
+    border-radius: 8px; /* Rounding corners */
+}
+
+.card-img-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Dark background with transparency */
+    color: white;
+    padding: 10px;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.card-text {
+    font-size: 1rem;
+    margin: 5px 0;
+}
+
